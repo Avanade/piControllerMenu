@@ -1,0 +1,16 @@
+root:
+  Demo Routines:
+    Robot Arm Test: rpiArmTest
+    Pump Test: rpiPumpTest
+  System Information: sysInfo
+  Admin:
+    Shutdown: shutdown
+    Reboot: reboot
+    Network Interfaces: network
+
+
+shutdown:
+  type: shell
+  command: shutdown -h now
+  confirm: false
+  
