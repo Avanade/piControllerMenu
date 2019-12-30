@@ -47,10 +47,14 @@ The project has an included sample menu (controllerMenu.yaml) to illustrate the 
 1. Install dependencies (above)
 2. Clone this repo to your RPi
 3. Edit controllerMenu.yaml to your specifications
-4. chmod 755 __main__.py (make entry point executable)
-5. sudo ln -s <path to controllerMenu.service> /etc/systemd/system/controllerMenu.service (create symbolic link to service definition)
-6. sudo systemctl enable controllerMenu.service (configure menu for start on boot)
-7. sudo systemctl start controllerMenu.service (start menu manually)
+4. Make entry point executable
+    ```chmod 755 __main__.py```
+5. Create symbolic link to service definition
+    ```sudo ln -s <path to controllerMenu.service> /etc/systemd/system/controllerMenu.service```
+6. Configure menu for start on boot
+    ```sudo systemctl enable controllerMenu.service```
+7. Start menu manually
+    ```sudo systemctl start controllerMenu.service```
 
 # DIN Rail Case for DIN mounting
 To be added once I post the 3D models on Thingiverse
