@@ -18,10 +18,8 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
-#
-# pylint: disable=C0103
 """
-    System Information module to generate built-in system information screen 
-    for the Pi-Menu system.
+    Module to implement command execution for the Pi-Menu system.
 """
 from .command import Command
+from .command import COMMAND_SHELL, COMMAND_BUILTIN

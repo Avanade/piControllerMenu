@@ -19,7 +19,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 """
-    Module to display items on an TFT panel.
+    Module to implement the navigation controls of the menu.
 """
-from .display import Display
-from .display import CONFIRM_CANCEL, CONFIRM_OK
+from .buttons import Navigation
+from .buttons import UP_CLICK, DOWN_CLICK, LEFT_CLICK, RIGHT_CLICK, SELECT_CLICK

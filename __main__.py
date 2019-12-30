@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 # Copyright (c) 2019 Avanade
 # Author: Thor Schueler
 #
@@ -18,8 +19,12 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
-"""
-    Module to display items on an TFT panel.
-"""
-from .display import Display
-from .display import CONFIRM_CANCEL, CONFIRM_OK
+import sys
+from controllerMenu import ControllerMenu
+
+try:
+    if __name__ == '__main__':
+        menu = ControllerMenu()
+        menu.Run()
+except:
+   print("Oops!",sys.exc_info()[0],"occured.")

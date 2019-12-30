@@ -19,7 +19,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 """
-    Module to display items on an TFT panel.
+    Module implementing the base class and various built-in commands for the Pi Menu
 """
-from .display import Display
-from .display import CONFIRM_CANCEL, CONFIRM_OK
+from .builtin import BuiltInCommand
+from .sysInfo import SysInfo 

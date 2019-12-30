@@ -1,0 +1,51 @@
+root:
+  Demo Routines:
+    Robot Arm Test: rpiArmTest
+    Pump Test: rpiPumpTest
+  System Information: sysInfo
+  Admin:
+    Shutdown: shutdown
+    Reboot: reboot
+    Network Interfaces: network
+
+commands:
+  shutdown:
+    type: shell
+    command: sudo shutdown -h now
+    processor: None
+    confirm: true
+
+  reboot:
+    type: shell
+    command: sudo shutdown -r now
+    processor: None
+    confirm: true
+
+  reboot:
+    type: shell
+    command: sudo shutdown -r now
+    processor: None
+    confirm: true
+
+  network:
+    type: shell
+    command: ls -l
+    processor: None
+    confirm: true
+  
+  rpiArmTest:
+    type: shell
+    command: ls -l
+    processor: None
+    confirm: true
+
+  rpiPumpTest:
+    type: shell
+    command: ls -l
+    processor: None
+    confirm: true
+
+  sysInfo:
+    type: builtin
+    command: sysInfo
+    confirm: false

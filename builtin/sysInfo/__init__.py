@@ -19,7 +19,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 """
-    Module to display items on an TFT panel.
+    System Information module to generate built-in system information screen 
+    for the Pi-Menu system.
 """
-from .display import Display
-from .display import CONFIRM_CANCEL, CONFIRM_OK
+from .sysInfo import SysInfo 
