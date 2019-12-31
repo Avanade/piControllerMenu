@@ -2,8 +2,11 @@
 This repo contains a Raspberry PI controller menu that allows interaction with the RPi via a mini LCD display and 5 tactile 
 buttons connected via GPIO. This is helpful in situations where you want to use your RPi headless, without screen, keybaord and mouse
 (such a process control or process automation scenarios) but want to interact and control your PI locally (ssh is not always convenient). 
+
 This is very similar to functionality to your have on PLCs that allow local interaction, program execution and status from a 
-built-in mini display. To see it in action:
+built-in mini display. 
+
+To see it in action, click on the image below for a brief YouTube video. 
 
 [![See it in action](controllerMenu.jpg)](https://youtu.be/ZApU0XuNtY8 "See it in action")
 
