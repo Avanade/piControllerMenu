@@ -95,5 +95,7 @@ class BuiltInCommand(ABC):
             self._draw()
             if stop(): break
             time.sleep(1)
+        self._disp.StopCommand = False      # this is necessary to reset the stop command flag, unfortunately.
+                                            # got to look for a better way, but for now it will do.  
         self._disp.DrawMenu()
         if complete is not None: complete()

@@ -153,6 +153,14 @@ class Display(object):
         """
         return self.__stopCommand
 
+    @StopCommand.setter
+    def StopCommand(self, val):
+        """ 
+            Sets the stop command flag. This is used for built-in commands only and signifies that 
+            command execution should be stopped. 
+        """
+        self.__stopCommand = val
+
     @property
     def UpCallback(self) -> callable:
         """ Gets the delegate invoked when the user navigates up the menu structure. """

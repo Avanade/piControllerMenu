@@ -3,13 +3,25 @@ This repo contains a Raspberry PI controller menu that allows interaction with t
 buttons connected via GPIO. This is helpful in situations where you want to use your RPi headless, without screen, keybaord and mouse
 (such a process control or process automation scenarios) but want to interact and control your PI locally (ssh is not always convenient). 
 This is very similar to functionality to your have on PLCs that allow local interaction, program execution and status from a 
-built-in mini display. 
+built-in mini display. To see it in action:
+
+<video src="https://youtu.be/ZApU0XuNtY8" poster="controllerMenu.jpg" width="200" height="320" controls preload></video>
 
 # Hardware
 
 1. 1x RPi 3 or 4
 2. 1x Waveshare 1.8in 128x160 LCD Display - https://www.amazon.com/gp/product/B0785SRXDG/ref=ppx_yo_dt_b_asin_title_o08_s00?ie=UTF8&psc=1
 3. 5x Micro Tactile Buttons - https://www.amazon.com/gp/product/B07HBBGRGM/ref=ppx_yo_dt_b_asin_title_o08_s01?ie=UTF8&psc=1
+
+Buttons share a common connection via a 1K resistor to 3.3V. The other side of the buttons are connected to GPIO pins (BCM Numbering) as follows:
+
+    Up Button       ->  GPIO BCM 17
+    Down Button     ->  GPIO BCM 5
+    Left Button     ->  GPIO BCM 6
+    Right Button    ->  GPIO BCM 22
+    Select Button   ->  GPIO BCM 18
+
+Schematic to be published. 
 
 # Software
 
