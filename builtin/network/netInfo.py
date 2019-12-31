@@ -66,7 +66,6 @@ class NetInfo(BuiltInCommand):
                     y += s[1] + 3
                 else:
                     #likely an IP6 address that is too long. we'll split it into mutliple lines along the colons
-                    ipp = ip
                     idx = len(ip)
                     while ((self._canvas.textsize(ip[:idx], font=self._disp.SmallFont)[0] > 
                             self._disp.Dimensions[0] - 2*x) and idx != -1):
