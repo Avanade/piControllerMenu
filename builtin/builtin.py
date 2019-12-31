@@ -81,7 +81,8 @@ class BuiltInCommand(ABC):
         self._output = []
         for idx, command in enumerate(self.Commands):
             o = subprocess.check_output(command, shell=True).decode()
-            self._output.append(subprocess.check_output(command, shell=True).decode())
+            m = list(filter(None, o.split("__br__")))
+            self._output += m
 
     def __run(self, stop: callable, complete: callable):
         '''

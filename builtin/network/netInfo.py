@@ -40,7 +40,7 @@ class NetInfo(BuiltInCommand):
     def Commands(self) -> list:
         """ Gets the list of shell commands to run for the netInfo command. """
         return [
-            "ip -o link | awk '/ether/ {printf \"%s\\n  status: %s\\n  %s\\n\", $2, $9, $17}'"
+            "ip -o link | awk '/ether/ {printf \"%s\\n  status: %s\\n  %s__br__\", $2, $9, $17}'"
         ]
 
     def _draw(self):
@@ -49,9 +49,9 @@ class NetInfo(BuiltInCommand):
         '''
         self._canvas.rectangle([(0, 0), self._disp.Dimensions], outline=0, fill=(0, 0, 0))
         y = self._padding 
-        color="#00ff00"
-        for idx, val in enumerate(self._output):
-            self._canvas.text((self._padding, y), val, font=self._disp.Font, fill=color)
-            y += self._disp.Font.getsize(val)[1]
+        for val in self._output:
+            color="#00ff00" if "UP" in val else "#ffff00"
+            self._canvas.multiline_text((self._padding, y), val, font=self._disp.Font, fill=color)
+            y += self._canvas.multiline_textsize(val, font=self._disp.Font)[1]
             y += self._padding
         self._disp.DrawImage(self._image)
