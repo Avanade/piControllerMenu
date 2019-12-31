@@ -35,23 +35,66 @@ class NetInfo(BuiltInCommand):
                             An instance of the display object representing the screen.
         '''
         super().__init__(disp)
+        self.__network = {}
 
     @property
     def Commands(self) -> list:
         """ Gets the list of shell commands to run for the netInfo command. """
         return [
-            "ip -o link | awk '/ether/ {printf \"%s\\n  status: %s\\n  %s__br__\", $2, $9, $17}'"
+            "ip -o link | awk '/ether/ {printf \"%s %s\\n  %s__br__\", $2, $9, $17}'",
+            "ip -o addr show | awk '$0 !~ /host/ {printf \"%s: %s__br__\", $2, $4}'"
         ]
 
     def _draw(self):
         '''
-            Draws the screen for the display of the system information. 
+            Draws the screen for the display of the network information. 
         '''
         self._canvas.rectangle([(0, 0), self._disp.Dimensions], outline=0, fill=(0, 0, 0))
-        y = self._padding 
-        for val in self._output:
-            color="#00ff00" if "UP" in val else "#ffff00"
-            self._canvas.multiline_text((self._padding, y), val, font=self._disp.Font, fill=color)
-            y += self._canvas.multiline_textsize(val, font=self._disp.Font)[1]
+        y = self._padding
+        x = self._padding + 5
+        for name in self.__network:
+            iface = self.__network[name]
+            color="#00ff00" if iface["status"] == "UP" else "#ffff00"
+            self._canvas.text((self._padding, y), f"{name} {iface['status']}", font=self._disp.Font, fill=color)
+            y += self._canvas.textsize(f"{name} {iface['status']}", font=self._disp.Font)[1]
+            self._canvas.text((x, y), f"mac: {iface['mac']}", font=self._disp.Font, fill=color)
+            y += self._canvas.textsize(f"mac: {iface['mac']}", font=self._disp.Font)[1] +3
+            for ip in iface["ip"]:
+                s = self._canvas.textsize(ip, font=self._disp.SmallFont)
+                if s[0] < self._disp.Dimensions[0] - x: 
+                    self._canvas.text((x, y), ip, font=self._disp.SmallFont, fill=color)
+                    y += s[1] + 3
+                else:
+                    #likely an IP6 address that is too long. we'll split it into mutliple lines along the colons
+                    ipp = ip
+                    idx = len(ip)
+                    while ((self._canvas.textsize(ip[:idx], font=self._disp.SmallFont)[0] > 
+                            self._disp.Dimensions[0] - 2*x) and idx != -1):
+                        idx = ip.rfind(":", 0, idx)    
+                    for i, p in enumerate([ip[:idx+1], ip[idx+1:]]):    
+                        self._canvas.text((x if i ==0 else 2*x, y), p, font=self._disp.SmallFont, fill=color)
+                        y += s[1] + 3
             y += self._padding
         self._disp.DrawImage(self._image)
+
+    def _getData(self):
+        '''
+            Gets the data for network information by calling various shell commands defined in BuiltInCommand.commands
+        '''
+        self._output = []
+        for idx, command in enumerate(self.Commands):
+            o = subprocess.check_output(command, shell=True).decode()
+            for val in list(filter(None, o.split("__br__"))):
+                a = val.split()
+                if idx==0:
+                    # a[0] -> interface name, a[1] -> status, a[2] -> mac
+                    self.__network[a[0]] = {}
+                    self.__network[a[0]]["status"] = a[1]
+                    self.__network[a[0]]["mac"] = a[2]
+                    self.__network[a[0]]["ip"] = []
+                if idx==1 and a[0] in self.__network:
+                    # a[0] -> interface name, a[1] -> ip 
+                    # there can be more than one IP address (one ip4 and mutliple ip6) per interface
+                    # not all interfaces have an IP, only interfaces that are UP do
+                    self.__network[a[0]]["ip"].append(a[1])
+

@@ -29,4 +29,4 @@ try:
         menu = ControllerMenu()
         menu.Run()
 except:
-    logging.CRITICAL(f"Oops! {sys.exc_info()[0]} occured.")
+    logging.CRITICAL("Oops! Exception occured:", exc_info=True)

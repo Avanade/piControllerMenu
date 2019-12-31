@@ -79,7 +79,7 @@ class BuiltInCommand(ABC):
             Gets the data for command by calling various shell commands defined in BuiltInCommand.commands
         '''
         self._output = []
-        for idx, command in enumerate(self.Commands):
+        for command in self.Commands:
             o = subprocess.check_output(command, shell=True).decode()
             m = list(filter(None, o.split("__br__")))
             self._output += m

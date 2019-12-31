@@ -81,6 +81,7 @@ class Display(object):
         # same directory as the python script!
         # Some other nice fonts to try: http://www.dafont.com/bitmap.php
         self.__font = ImageFont.truetype('display/Roboto-Regular.ttf', 12)
+        self.__smallFont = ImageFont.truetype('display/Roboto-Regular.ttf', 9)
         self.__textColor = "#00FF00"
         self.__selectedColor = "#FFFFFF"
         self.__navigationColor = "#00FF00"
@@ -144,6 +145,11 @@ class Display(object):
             (selectIndex: int, selectItem: str) -> None       
         """
         self.__selectCallback = callback
+
+    @property
+    def SmallFont(self) -> ImageFont:
+        """ Gets the active small display font """
+        return self.__smallFont
 
     @property
     def StopCommand(self) -> bool:
