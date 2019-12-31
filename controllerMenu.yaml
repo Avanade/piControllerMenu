@@ -6,7 +6,7 @@ root:
   Admin:
     Shutdown: shutdown
     Reboot: reboot
-    Network Interfaces: network
+    Network Interfaces: netInfo
 
 commands:
   shutdown:
@@ -27,11 +27,10 @@ commands:
     processor: None
     confirm: true
 
-  network:
-    type: shell
-    command: ls -l
-    processor: None
-    confirm: true
+  netInfo:
+    type: builtin
+    command: netInfo
+    confirm: false
   
   rpiArmTest:
     type: shell

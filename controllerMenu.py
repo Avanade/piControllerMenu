@@ -99,10 +99,10 @@ class ControllerMenu(object):
         """
         items = [".."]
         if type(self.__currentMenu[selectItem]) is str:
-            logging.info("Execute {self.__currentMenu[selectItem]}")
+            logging.info(f"Execute {self.__currentMenu[selectItem]}")
             self.__commands[self.__currentMenu[selectItem]].Run(display=self.__disp)
         else:
-            logging.info("Load {self.__currentMenu[selectItem]}")
+            logging.info(f"Load {self.__currentMenu[selectItem]}")
             self.__currentMenu = self.__currentMenu[selectItem]
             self.__breadcrumb.append(selectItem)
             for item in self.__currentMenu: items.append(item)

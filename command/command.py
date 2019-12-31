@@ -23,7 +23,7 @@
 """
 import subprocess
 import logging
-from builtin import SysInfo
+from builtin import SysInfo, NetInfo
 from display import Display, CONFIRM_OK, CONFIRM_CANCEL
 
 COMMAND_BUILTIN = 0
@@ -35,7 +35,8 @@ class Command(object):
     """
 
     builtInCommands: dict = {
-        "sysInfo": SysInfo
+        "sysInfo": SysInfo,
+        "netInfo": NetInfo
     }
 
     #region constructor
@@ -197,7 +198,7 @@ class Command(object):
             processor = data["processor"] if "processor" in data.keys() else None,
             confirm = data["confirm"] if "confirm" in data.keys() else False
           )
-        logging.info("Deserialized command {command.Command} successfully")
+        logging.info(f"Deserialized command {command.Command} successfully")
         return command
     #endregion
 

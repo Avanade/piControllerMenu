@@ -20,11 +20,13 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 import sys
+import logging
 from controllerMenu import ControllerMenu
 
+logging.basicConfig(level=logging.DEBUG)
 try:
     if __name__ == '__main__':
         menu = ControllerMenu()
         menu.Run()
 except:
-   print("Oops!",sys.exc_info()[0],"occured.")
+    logging.CRITICAL(f"Oops! {sys.exc_info()[0]} occured.")

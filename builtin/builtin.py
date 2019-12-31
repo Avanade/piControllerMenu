@@ -31,8 +31,6 @@ class BuiltInCommand(ABC):
         commands of the PI Menu
     '''
 
-    commands = []
-
     def __init__(self, disp: Display):
         '''
             Constructor - Creates a new instance of the BuiltInCommand class.
@@ -47,6 +45,11 @@ class BuiltInCommand(ABC):
         self._padding = 10
         self.__runThread = None
         super().__init__()
+
+    @property
+    def Commands(self) -> list:
+        """ Gets the list of shell commands to run for the built-in command. """
+        return []
 
     def Run(self, stop: callable, completed: callable = None):
         '''
@@ -71,12 +74,14 @@ class BuiltInCommand(ABC):
         '''
         pass
 
-    @abstractmethod
     def _getData(self):
         '''
-            Abstract for getting the data for the built-in command by calling various shell commands defined in BuiltInCommand.commands
+            Gets the data for command by calling various shell commands defined in BuiltInCommand.commands
         '''
-        pass
+        self._output = []
+        for idx, command in enumerate(self.Commands):
+            o = subprocess.check_output(command, shell=True).decode()
+            self._output.append(subprocess.check_output(command, shell=True).decode())
 
     def __run(self, stop: callable, complete: callable):
         '''

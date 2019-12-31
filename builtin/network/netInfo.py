@@ -23,17 +23,13 @@ from builtin import BuiltInCommand
 from display import Display
 from PIL import Image, ImageDraw, ImageFont
 
-class SysInfo(BuiltInCommand):
+class NetInfo(BuiltInCommand):
     '''
-        The SysInfo class implements a second by second update on vital system statistics for the PI Menu
+        The NetInfo class implements a second by second update on network statistics for the PI Menu
     '''
-
-    commands = [
-    ]
-
     def __init__(self, disp: Display):
         '''
-            Constructor - Creates a new instance of the SysInfo class.
+            Constructor - Creates a new instance of the NetInfo class.
             Parameters:
                 disp :      Display
                             An instance of the display object representing the screen.
@@ -42,13 +38,9 @@ class SysInfo(BuiltInCommand):
 
     @property
     def Commands(self) -> list:
-        """ Gets the list of shell commands to run for the sysInfo command. """
+        """ Gets the list of shell commands to run for the netInfo command. """
         return [
-            "hostname -I | cut -d\' \' -f1 | awk \'{printf \"IP: %s\", $(0)}\'",
-            "top -bn1 | grep load | awk '{printf \"CPU Load: %.2f\", $(NF-2)}'",
-            "free -m | awk 'NR==2{printf \"Mem: %s/%sMB %.2f%%\", $3,$2,$3*100/$2 }'",
-            "df -h | awk '$NF==\"/\"{printf \"Disk: %d/%dGB %s\", $3,$2,$5}'",
-            "cat /sys/class/thermal/thermal_zone0/temp |  awk \'{printf \"CPU Temp: %.1f C\", $(NF-0) / 1000}\'"
+            "ip -o link | awk '/ether/ {printf \"%s\\n  status: %s\\n  %s\\n\", $2, $9, $17}'"
         ]
 
     def _draw(self):
@@ -57,13 +49,8 @@ class SysInfo(BuiltInCommand):
         '''
         self._canvas.rectangle([(0, 0), self._disp.Dimensions], outline=0, fill=(0, 0, 0))
         y = self._padding 
+        color="#00ff00"
         for idx, val in enumerate(self._output):
-            split = val.split()
-            color = "#ffffff"
-            if idx==1: color = "#00ff00" if float(split[len(split)-1]) < 0.25 else "#ffff00" if float(split[len(split)-1]) < 0.75 else "#ff0000"
-            if idx==2: color = "#00ff00"
-            if idx==3: color = "#00ff00"
-            if idx==4: color = "#00ff00" if float(split[len(split)-2]) < 50 else "#ffff00" if float(split[len(split)-2]) < 60 else "#ff0000"  
             self._canvas.text((self._padding, y), val, font=self._disp.Font, fill=color)
             y += self._disp.Font.getsize(val)[1]
             y += self._padding

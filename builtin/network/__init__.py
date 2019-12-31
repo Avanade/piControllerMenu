@@ -19,8 +19,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 """
-    Module implementing the base class and various built-in commands for the Pi Menu
+    Network Information module to generate built-in network information screen 
+    for the Pi-Menu system.
 """
-from .builtin import BuiltInCommand
-from .sysInfo import SysInfo
-from .network import NetInfo
+from .netInfo import NetInfo
