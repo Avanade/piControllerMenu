@@ -5,7 +5,7 @@ buttons connected via GPIO. This is helpful in situations where you want to use 
 This is very similar to functionality to your have on PLCs that allow local interaction, program execution and status from a 
 built-in mini display. To see it in action:
 
-[![See it in action](controllerMenu.jpg | width=200)](https://youtu.be/ZApU0XuNtY8 "See it in action")
+[![See it in action](controllerMenu.jpg)](https://youtu.be/ZApU0XuNtY8 "See it in action")
 
 # Hardware
 
