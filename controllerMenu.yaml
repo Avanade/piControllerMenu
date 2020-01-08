@@ -3,6 +3,11 @@ root:
     Robot Arm Test: rpiArmTest
     Pump Test: rpiPumpTest
   System Information: sysInfo
+  Robot Arm Environment:
+    Service Status: rpiArmStatus
+    Restart Service: rpiArmRestart
+    Start Service: rpiArmStart
+    Stop Service: rpiArmStop
   Admin:
     Shutdown: shutdown
     Reboot: reboot
@@ -34,9 +39,33 @@ commands:
   
   rpiArmTest:
     type: shell
-    command: ls -l
+    command: python3 /home/pi/projects/meArmPi/util/armtest.py
+    processor: None
+    confirm: false
+
+  rpiArmStart:
+    type: shell
+    command: sudo systemctl start meArm.service
     processor: None
     confirm: true
+
+  rpiArmStop:
+    type: shell
+    command: sudo systemctl stop meArm.service
+    processor: None
+    confirm: true
+
+  rpiArmRestart:
+      type: shell
+      command: sudo systemctl restart meArm.service
+      processor: None
+      confirm: true
+
+  rpiArmStatus:
+    type: shell
+    command: sudo systemctl list-units meArm.service
+    processor: None
+    confirm: false
 
   rpiPumpTest:
     type: shell
