@@ -40,7 +40,7 @@ class Command(object):
     }
 
     #region constructor
-    def __init__(self, type: int, command: str, processor: str = '', confirm: bool = False):
+    def __init__(self, type: int, command: str, processor: str = '', confirm: bool = False, cwd = None):
         """
             Initializes a new instance of the Command class
             Parameters:
@@ -54,6 +54,8 @@ class Command(object):
                             Optional, for future functionality. Not currently used.
                 confirm:    bool
                             True to require confirmation before the command is executed, false otherwise. 
+                cwd:        str
+                            Current Working Directory to execute the command in
         """
         self.__type: int = type
         self.__command: str = command
@@ -65,6 +67,7 @@ class Command(object):
         self.__spinHandler: callable = None
         self.__outputHandler: callable = None
         self.__running: bool = False
+        self.__cwd: str = cwd
     #endregion
 
     #region Property defintions
@@ -153,14 +156,17 @@ class Command(object):
             if self.__type == COMMAND_SHELL:
                 if self.__spinHandler is not None: self.__spinHandler(True)
                 try:
-                    self.__output = subprocess.check_output(self.__command, shell=True).decode()
+                    #breakpoint()
+                    self.__output = subprocess.check_output(self.__command, shell=True,  cwd=self.__cwd).decode()
                     self.__returnCode = 0
                 except subprocess.CalledProcessError as e:
                     self.__output = e.output.decode()
                     self.__returnCode = e.returncode
+                    logging.exception(e)
                 except Exception as e:
                     self.__output = str(e)
                     self.__returnCode = -1000
+                    logging.exception(e)
                 if self.__spinHandler is not None: self.__spinHandler(False)
                 if self.__outputHandler is not None: self.__outputHandler(self.__command, self.__returnCode, self.__output)
                 self.__running = False
@@ -196,7 +202,8 @@ class Command(object):
             type=COMMAND_BUILTIN if data["type"] == "builtin" else COMMAND_SHELL,
             command = data["command"],
             processor = data["processor"] if "processor" in data.keys() else None,
-            confirm = data["confirm"] if "confirm" in data.keys() else False
+            confirm = data["confirm"] if "confirm" in data.keys() else False,
+            cwd = data["cwd"] if "cwd" in data.keys() else None
           )
         logging.info(f"Deserialized command {command.Command} successfully")
         return command

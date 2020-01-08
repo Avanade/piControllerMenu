@@ -39,7 +39,8 @@ commands:
   
   rpiArmTest:
     type: shell
-    command: python3 /home/pi/projects/meArmPi/util/armtest.py
+    command: /usr/bin/python3 -u /home/pi/projects/meArmPi/util/armtest.py
+    cwd: /home/pi/projects/meArmPi
     processor: None
     confirm: false
 
