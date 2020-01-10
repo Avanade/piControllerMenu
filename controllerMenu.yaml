@@ -8,10 +8,13 @@ root:
     Restart Service: rpiArmRestart
     Start Service: rpiArmStart
     Stop Service: rpiArmStop
-  Admin:
+  Admin (robot-pi):
     Shutdown: shutdown
     Reboot: reboot
     Network Interfaces: netInfo
+  Admin (pump-pi):
+      Shutdown: pumpShutdown
+      Reboot: pumpReboot
 
 commands:
   shutdown:
@@ -25,6 +28,18 @@ commands:
     command: sudo shutdown -r now
     processor: None
     confirm: true
+
+  pumpShutdown:
+    type: shell
+    command: ssh -i /home/pi/.ssh/id_rsa-robot-pi pi@pump-pi.local sudo shutdown -h now
+    processor: None
+    confirm: true
+  
+  pumpReboot:
+      type: shell
+      command: ssh -i /home/pi/.ssh/id_rsa-robot-pi pi@pump-pi.local sudo shutdown -r now
+      processor: None
+      confirm: true
 
   reboot:
     type: shell
@@ -70,7 +85,7 @@ commands:
 
   rpiPumpTest:
     type: shell
-    command: ls -l
+    command: ssh -i /home/pi/.ssh/id_rsa-robot-pi pi@pump-pi.local python3 /home/pi/projects/Adafruit-Motor-HAT-Python-Library/examples/DCTest.py
     processor: None
     confirm: true
 
