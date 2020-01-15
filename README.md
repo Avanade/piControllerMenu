@@ -31,6 +31,8 @@ Schematic to be published.
 1. Python 3.7 or higher
 2. RPI.GPIO
 3. PIL/Pillow
+4. py-yaml
+5. Spidev
 
 # Basic Functionality
 The menu is installed as a service at boot time. It has the ability for user defined root and sub menus as well as process execution 
